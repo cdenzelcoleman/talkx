@@ -1,0 +1,28 @@
+/* I'm importing Tailwind's base, components, and utilities */
+/* This gives me access to all Tailwind classes throughout the app */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* I'm adding smooth transitions for theme changes */
+/* This makes the dark/light mode toggle feel polished */
+* {
+  @apply transition-colors duration-200;
+}
+
+/* I'm setting a default scrollbar style that works in both themes */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-light-surface dark:bg-dark-surface;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-light-border dark:bg-dark-border rounded;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-600;
+}
