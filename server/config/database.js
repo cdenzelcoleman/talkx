@@ -7,13 +7,8 @@ const config = require('./environment');
 
 const connectDB = async () => {
   try {
-    // I'm setting these Mongoose options for better compatibility
-    const options = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    };
-
-    const conn = await mongoose.connect(config.mongodb.uri, options);
+    // I'm connecting to MongoDB (Mongoose 6+ doesn't need useNewUrlParser/useUnifiedTopology options)
+    const conn = await mongoose.connect(config.mongodb.uri);
 
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
 

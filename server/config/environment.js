@@ -2,20 +2,32 @@
 // This makes it easier to validate and provide defaults
 // If any required env var is missing, I'll throw a clear error
 
+// I'm defining critical env vars that must be present
 const requiredEnvVars = [
   'MONGODB_URI',
   'JWT_SECRET',
+  'CLIENT_URL',
+];
+
+// I'm defining OAuth env vars that should be present but won't block startup
+const oauthEnvVars = [
   'GOOGLE_CLIENT_ID',
   'GOOGLE_CLIENT_SECRET',
   'GITHUB_CLIENT_ID',
   'GITHUB_CLIENT_SECRET',
-  'CLIENT_URL',
 ];
 
-// I'm checking for missing env vars on startup to fail fast
+// I'm checking for missing critical env vars on startup to fail fast
 requiredEnvVars.forEach((envVar) => {
   if (!process.env[envVar]) {
     throw new Error(`Missing required environment variable: ${envVar}`);
+  }
+});
+
+// I'm warning about missing OAuth credentials but not failing
+oauthEnvVars.forEach((envVar) => {
+  if (!process.env[envVar] || process.env[envVar].includes('your-')) {
+    console.warn(`⚠️  Warning: ${envVar} is not configured. OAuth login will not work.`);
   }
 });
 
